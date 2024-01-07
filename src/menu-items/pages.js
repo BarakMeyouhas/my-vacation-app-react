@@ -13,7 +13,8 @@ const handleLogout = () => {
   localStorage.removeItem('user_password');
   localStorage.removeItem('user_email');
   localStorage.removeItem('user_name');
-};
+}
+
 
 // ==============================|| MENU ITEMS - EXTRA PAGES ||============================== //
 
@@ -26,7 +27,6 @@ const pages = {
       id: 'logout',
       title: 'Logout',
       type: 'item',
-      url: '/login',
       icon: icons.LogoutOutlined,
       target: '_self', // Change target to '_self'
       onClick: handleLogout(), // Pass the function reference without invoking it
