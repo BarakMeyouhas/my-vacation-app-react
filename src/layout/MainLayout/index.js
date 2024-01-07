@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -21,6 +22,8 @@ const MainLayout = () => {
   const theme = useTheme();
   const matchDownLG = useMediaQuery(theme.breakpoints.down('lg'));
   const dispatch = useDispatch();
+  const [userID, setUserID] = useState(null); // Initialize userID state
+  const navigate = useNavigate();
 
   const { drawerOpen } = useSelector((state) => state.menu);
 
@@ -30,6 +33,20 @@ const MainLayout = () => {
     setOpen(!open);
     dispatch(openDrawer({ drawerOpen: !open }));
   };
+
+  useEffect(() => {
+    
+    const local_user_id = localStorage.getItem('user_id');
+    const local_user_email = localStorage.getItem('user_email');
+    if (!local_user_id) {
+      navigate('/login');
+    } else if (local_user_email === 'admin1@gmail.com') {
+      navigate('/adminAllVacations');
+    } else {
+      setUserID(local_user_id);
+      console.log(userID);
+    }
+  }, [navigate]);
 
   // set media wise responsive drawer
   useEffect(() => {
