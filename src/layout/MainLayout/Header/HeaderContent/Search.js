@@ -28,7 +28,7 @@ const Search = () => {
           inputProps={{
             'aria-label': 'weight'
           }}
-          placeholder="Search"
+          placeholder="Search here"
           // Optionally, you can also set the value here based on the Redux state
           // value={searchValue}
           onChange={handleSearchChange}
