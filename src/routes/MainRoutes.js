@@ -25,7 +25,7 @@ const Color = Loadable(lazy(() => import('pages/components-overview/Color')));
 
 const MainRoutes = {
   path: '/',
-  element: <MainLayout />,
+  element: <AllVacations />,
   children: [
     {
       path: '/allVacations',
