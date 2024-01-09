@@ -35,18 +35,28 @@ const MainLayout = () => {
   };
 
   useEffect(() => {
-    
     const local_user_id = localStorage.getItem('user_id');
     const local_user_email = localStorage.getItem('user_email');
     if (!local_user_id) {
       navigate('/login');
     } else if (local_user_email === 'admin1@gmail.com') {
-      // navigate('/adminAllVacations');
+      // login
     } else {
       setUserID(local_user_id);
       console.log(userID);
     }
   }, [navigate]);
+
+  useEffect(() => {
+    // Function to clear local storage
+    const clearLocalStorage = () => {
+      localStorage.clear();
+    };
+    window.addEventListener('beforeunload', clearLocalStorage);
+    return () => {
+      window.removeEventListener('beforeunload', clearLocalStorage);
+    };
+  }, []);
 
   // set media wise responsive drawer
   useEffect(() => {
