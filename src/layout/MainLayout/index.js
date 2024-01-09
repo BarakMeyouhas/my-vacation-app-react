@@ -41,7 +41,7 @@ const MainLayout = () => {
     if (!local_user_id) {
       navigate('/login');
     } else if (local_user_email === 'admin1@gmail.com') {
-      navigate('/adminAllVacations');
+      // navigate('/adminAllVacations');
     } else {
       setUserID(local_user_id);
       console.log(userID);
