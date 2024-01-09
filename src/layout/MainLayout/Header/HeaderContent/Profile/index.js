@@ -140,7 +140,7 @@ const Profile = () => {
                         </Grid>
                         <Grid item>
                           <IconButton size="large" color="secondary" onClick={handleLogout}>
-                            <LogoutOutlined />
+                          Logout<br></br><LogoutOutlined />
                           </IconButton>
                         </Grid>
                       </Grid>
