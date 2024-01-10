@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 // material-ui
-import { Button, FormHelperText, Grid, Link, IconButton, InputAdornment, InputLabel, OutlinedInput, Stack } from '@mui/material';
+import { Button, Box, FormHelperText, Grid, Link, IconButton, InputAdornment, InputLabel, OutlinedInput, Stack } from '@mui/material';
 
 // third party
 import * as Yup from 'yup';
@@ -44,6 +44,13 @@ const AuthLogin = () => {
       ...prevUser,
       [name]: type === 'checkbox' ? value : value
     }));
+  };
+
+  const loginAsAdmin = () => {
+    localStorage.setItem('user_name', 'admin');
+    localStorage.setItem('user_email', 'admin1@gmail.com');
+    localStorage.setItem('user_id', 14);
+    navigate('/adminAllVacations');
   };
 
   const handleSubmit = (event) => {
@@ -108,96 +115,117 @@ const AuthLogin = () => {
         }}
       >
         {({ errors, handleBlur, isSubmitting, touched }) => (
-          <form noValidate onSubmit={handleSubmit}>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <Stack spacing={1}>
-                  <InputLabel htmlFor="email-login">Email Address</InputLabel>
-                  <OutlinedInput
-                    id="email-login"
-                    type="email"
-                    value={user.user_email}
-                    name="user_email"
-                    onBlur={handleBlur}
-                    onChange={handleInputChange}
-                    placeholder="demo@gmail.com"
-                    fullWidth
-                    error={Boolean(touched.user_email && errors.user_email)}
-                  />
-                  {touched.user_email && errors.user_email && (
-                    <FormHelperText error id="standard-weight-helper-text-email-login">
-                      {errors.user_email}
-                    </FormHelperText>
-                  )}
-                </Stack>
-              </Grid>
-              <Grid item xs={12}>
-                <Stack spacing={1}>
-                  <InputLabel htmlFor="password-login">Password</InputLabel>
-                  <OutlinedInput
-                    fullWidth
-                    error={Boolean(touched.password && errors.password)}
-                    id="password-login"
-                    defaultValue="demo123" // Set default value here
-                    type={showPassword ? 'text' : 'password'}
-                    value={user.password}
-                    name="password"
-                    onBlur={handleBlur}
-                    onChange={handleInputChange}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          edge="end"
-                          size="large"
-                        >
-                          {showPassword ? <EyeOutlined /> : <EyeInvisibleOutlined />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                    placeholder="Enter password"
-                  />
-                  {touched.password && errors.password && (
-                    <FormHelperText error id="standard-weight-helper-text-password-login">
-                      {errors.password}
-                    </FormHelperText>
-                  )}
-                </Stack>
-              </Grid>
-
-              <Grid item xs={12} sx={{ mt: -1 }}>
-                <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
-                  <Link variant="h6" component={RouterLink} to="" color="text.primary">
-                    Forgot Password?
-                  </Link>
-                </Stack>
-              </Grid>
-
-              {errors.submit && (
+          <>
+            <form noValidate onSubmit={handleSubmit}>
+              <Grid container spacing={3}>
                 <Grid item xs={12}>
-                  <FormHelperText error>{errors.submit}</FormHelperText>
+                  <Stack spacing={1}>
+                    <InputLabel htmlFor="email-login">Email Address</InputLabel>
+                    <OutlinedInput
+                      id="email-login"
+                      type="email"
+                      value={user.user_email}
+                      name="user_email"
+                      onBlur={handleBlur}
+                      onChange={handleInputChange}
+                      placeholder="demo@gmail.com"
+                      fullWidth
+                      error={Boolean(touched.user_email && errors.user_email)}
+                    />
+                    {touched.user_email && errors.user_email && (
+                      <FormHelperText error id="standard-weight-helper-text-email-login">
+                        {errors.user_email}
+                      </FormHelperText>
+                    )}
+                  </Stack>
                 </Grid>
-              )}
+                <Grid item xs={12}>
+                  <Stack spacing={1}>
+                    <InputLabel htmlFor="password-login">Password</InputLabel>
+                    <OutlinedInput
+                      fullWidth
+                      error={Boolean(touched.password && errors.password)}
+                      id="password-login"
+                      defaultValue="demo123" // Set default value here
+                      type={showPassword ? 'text' : 'password'}
+                      value={user.password}
+                      name="password"
+                      onBlur={handleBlur}
+                      onChange={handleInputChange}
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge="end"
+                            size="large"
+                          >
+                            {showPassword ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                      placeholder="Enter password"
+                    />
+                    {touched.password && errors.password && (
+                      <FormHelperText error id="standard-weight-helper-text-password-login">
+                        {errors.password}
+                      </FormHelperText>
+                    )}
+                  </Stack>
+                </Grid>
+
+                <Grid item xs={12} sx={{ mt: -1 }}>
+                  <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
+                    <Link variant="h6" component={RouterLink} to="" color="text.primary">
+                      Forgot Password?
+                    </Link>
+                  </Stack>
+                </Grid>
+
+                {errors.submit && (
+                  <Grid item xs={12}>
+                    <FormHelperText error>{errors.submit}</FormHelperText>
+                  </Grid>
+                )}
+                <Grid item xs={12}>
+                  <AnimateButton>
+                    <Button
+                      id="login"
+                      disableElevation
+                      disabled={isSubmitting}
+                      fullWidth
+                      size="large"
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                    >
+                      Login
+                    </Button>
+                  </AnimateButton>
+                </Grid>
+              </Grid>
+            </form>
+
+            <Box sx={{ mt: 2 }}>
               <Grid item xs={12}>
                 <AnimateButton>
                   <Button
-                    id="login"
+                    id="login-as-admin"
                     disableElevation
                     disabled={isSubmitting}
                     fullWidth
                     size="large"
-                    type="submit"
+                    onClick={loginAsAdmin}
                     variant="contained"
-                    color="primary"
+                    color="secondary"
                   >
-                    Login
+                    Login as admin
                   </Button>
                 </AnimateButton>
               </Grid>
-            </Grid>
-          </form>
+            </Box>
+          </>
         )}
       </Formik>
     </>
